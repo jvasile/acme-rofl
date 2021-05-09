@@ -5,12 +5,12 @@ all: build
 
 build: ${BUILD}
 
-build/lib/%: src/%
+build/lib/%: src/% setup.py
 	python3 -m build
 	touch ${BUILD}
 
 upload: ${BUILD}
-	twine upload dist/*
+	twine upload --skip-existing dist/*
 
 run:
 	./scripts/acme-rofl
