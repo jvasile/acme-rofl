@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="acme-rofl",
-    version="0.0.1",
+    version="0.0.2",
     author="James Vasile",
     author_email="james@opentechstrategies.com",
     description="Respond to ACME challenges, forward all other requests to 443",
