@@ -3,7 +3,6 @@ BUILD:=${subst src,build/lib,$(SOURCE)}
 
 all: build
 
-.PHONY=build
 build: ${BUILD}
 
 build/lib/%: src/%
@@ -14,7 +13,9 @@ upload: ${BUILD}
 	twine upload dist/*
 
 run:
-	./scripts/acme-rofl run
+	./scripts/acme-rofl
 
 clean:
 	rm -rf build
+
+.PHONY: build clean

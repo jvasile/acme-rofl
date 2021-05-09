@@ -14,8 +14,8 @@ even if you do, this is built on twisted, and it goes brrr.
 import os
 import click
 import sys
-from twisted.web import server, resource
 from twisted.internet import reactor
+from twisted.web import server, resource
 
 class Simple(resource.Resource):
     isLeaf = True
@@ -28,6 +28,7 @@ class Simple(resource.Resource):
         # Handle acme challenge
         if request.uri.startswith(b"/.well-known"):
             path = self.webroot + request.uri.decode("utf-8")
+            print(f"Request: {path}")
 
             # If it's not there, say so
             if not os.path.exists(path):
@@ -55,11 +56,8 @@ class Simple(resource.Resource):
     def render_POST(self, request):
         self.render_GET(request)
 
-@click.group()
-def cli():
-    pass
 
-@cli.command()
+@click.command()
 @click.option("--root", default="/var/www/acme", help="Path to the html webroot")
 def run(root):
     "Run the ACME ROFL respond or forward listener"
@@ -67,9 +65,10 @@ def run(root):
     if not os.path.exists(root):
         sys.exit(f"{root} does not exist")
 
-    site = server.Site(Simple(root))
+    server_root = Simple(root)
+    site = server.Site(server_root)
     reactor.listenTCP(80, site)
     reactor.run()
 
 if __name__ == "__main__":
-    cli()
+    run()
