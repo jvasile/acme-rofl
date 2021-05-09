@@ -19,6 +19,9 @@ installed this via pip, you'll find
 your systemd scripts live.  On Debian that could be one of several
 places, and one of them is `/etc/systemd/system`.
 
+    cd /etc/systemd/system
+    ln -s /usr/local/share/acme-rofl/acme-rofl.service
+
 Then, tell systemd there's a new script:
 
     systemctl daemon-reload
